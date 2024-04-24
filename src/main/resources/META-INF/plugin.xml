@@ -15,4 +15,8 @@
                           relative-to-action="ProjectView.SortByTimeAscending"/>
         </action>
     </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="de.siv.adoc.activity.AdocSortActivity"/>
+    </extensions>
 </idea-plugin>
