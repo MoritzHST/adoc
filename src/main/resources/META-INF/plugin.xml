@@ -6,7 +6,7 @@
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.Bundle</resource-bundle>
+
 
     <actions>
         <action id="de.siv.adoc.action.AdocSortAction" class="de.siv.adoc.action.AdocSortAction" text="Kundenansicht"
