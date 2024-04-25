@@ -19,4 +19,10 @@
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="de.siv.adoc.activity.AdocSortActivity"/>
     </extensions>
+
+    <applicationListeners>
+        <listener
+                class="de.siv.adoc.listeners.AdocSortListener"
+                topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+    </applicationListeners>
 </idea-plugin>
