@@ -11,8 +11,7 @@
     <actions>
         <action id="de.siv.adoc.action.AdocSortAction" class="de.siv.adoc.action.AdocSortAction" text="Kundenansicht"
                 description="adoc-Dokumente wie in Kundenansicht anzeigen">
-            <add-to-group group-id="ProjectView.ToolWindow.Appearance.Actions" anchor="after"
-                          relative-to-action="ProjectView.SortByTimeAscending"/>
+            <add-to-group group-id="ProjectView.ToolWindow.Appearance.Actions" anchor="last"/>
         </action>
     </actions>
 

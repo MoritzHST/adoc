@@ -3,26 +3,16 @@ package de.siv.adoc.action;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.project.DumbAwareToggleAction;
+import com.intellij.openapi.actionSystem.ToggleAction;
+import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 
 import de.siv.adoc.service.AdocSortService;
 import org.jetbrains.annotations.NotNull;
 
 
-public class AdocSortAction extends DumbAwareToggleAction {
+public class AdocSortAction extends ToggleAction implements DumbAware {
     public static final String TOGGLE_STATE_KEY = "AdocSortAction.ToggleState";
-
-    @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {
-        Project project = e.getProject();
-        if (project == null) {
-            return;
-        }
-        sortProject(project);
-        super.actionPerformed(e);
-
-    }
 
     private void sortProject(Project project) {
         project.getService(AdocSortService.class).sortProjectByAdoc();
@@ -36,6 +26,11 @@ public class AdocSortAction extends DumbAwareToggleAction {
     @Override
     public void setSelected(@NotNull AnActionEvent e, boolean state) {
         this.setToggled(state);
+        Project project = e.getProject();
+        if (project == null) {
+            return;
+        }
+        sortProject(project);
     }
 
     private boolean isToggled() {
