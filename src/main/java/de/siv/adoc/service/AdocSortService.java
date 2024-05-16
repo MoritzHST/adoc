@@ -31,7 +31,6 @@ import static de.siv.adoc.action.AdocSortAction.TOGGLE_STATE_KEY;
 public final class AdocSortService {
     private static final Logger cLOGGER = Logger.getInstance(AdocSortService.class);
     private final Project project;
-    private static final String cADOC = "adoc";
     private final Cache<String, Integer> cache;
 
     public AdocSortService(Project project) {
@@ -52,6 +51,9 @@ public final class AdocSortService {
     public void sortProjectPane(VirtualFile pFile) {
         ProjectView instance = ProjectView.getInstance(this.project);
         AbstractProjectViewPane currentProjectViewPane = instance.getCurrentProjectViewPane();
+        if (currentProjectViewPane == null || !pFile.isValid()) {
+            return;
+        }
         PsiManager psiManager = PsiManager.getInstance(project);
         PsiFile file = psiManager.findFile(pFile);
         cache.invalidateAll();
@@ -71,7 +73,7 @@ public final class AdocSortService {
                 Integer value1 = null;
                 Integer value2 = null;
 
-                 if (o1 instanceof PsiFileNode p1) {
+                if (o1 instanceof PsiFileNode p1) {
                     value1 = parseFile(p1.getValue().getVirtualFile().getPath());
                 }
                 if (o2 instanceof PsiFileNode p2) {
