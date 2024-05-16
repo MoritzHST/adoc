@@ -67,7 +67,9 @@ public final class AdocSortService {
         this.cache.invalidateAll();
         ProjectView instance = ProjectView.getInstance(this.project);
         AbstractProjectViewPane currentProjectViewPane = instance.getCurrentProjectViewPane();
-
+        if (currentProjectViewPane == null) {
+            return;
+        }
         currentProjectViewPane.installComparator((o1, o2) -> {
             if (PropertiesComponent.getInstance().getBoolean(TOGGLE_STATE_KEY, false)) {
                 Integer value1 = null;
