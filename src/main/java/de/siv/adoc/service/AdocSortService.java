@@ -68,6 +68,7 @@ public final class AdocSortService {
         ProjectView instance = ProjectView.getInstance(this.project);
         AbstractProjectViewPane currentProjectViewPane = instance.getCurrentProjectViewPane();
         if (currentProjectViewPane == null) {
+            cLOGGER.warn("Could not find CurrentProjectView");
             return;
         }
         currentProjectViewPane.installComparator((o1, o2) -> {
@@ -76,9 +77,15 @@ public final class AdocSortService {
                 Integer value2 = null;
 
                 if (o1 instanceof PsiFileNode p1) {
+                    if (describesParent(p1)) {
+                        return -1;
+                    }
                     value1 = parseFile(p1.getValue().getVirtualFile().getPath());
                 }
                 if (o2 instanceof PsiFileNode p2) {
+                    if (describesParent(p2)) {
+                        return 1;
+                    }
                     value2 = parseFile(p2.getValue().getVirtualFile().getPath());
                 }
 
@@ -120,6 +127,11 @@ public final class AdocSortService {
         });
 
         currentProjectViewPane.updateFromRoot(true);
+    }
+
+    private Boolean describesParent(PsiFileNode node) {
+        AbstractTreeNode<?> parent = node.getParent();
+        return node.getName() != null && node.getName().replace(".adoc", "").equals(parent.getName());
     }
 
     private @NotNull Optional<? extends AbstractTreeNode<?>> getDescription(PsiDirectoryNode d1) {
