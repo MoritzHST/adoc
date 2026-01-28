@@ -4,7 +4,7 @@ annotations = "26.0.2-1"
 
 # plugins
 kotlin = "2.3.0"
-changelog = "2.2.0"
+changelog = "2.5.0"
 gradleIntelliJPlugin = "1.17.3"
 qodana = "2024.2.3"
 kover = "0.9.4"
